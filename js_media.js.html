@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/media.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/media.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { addLink } from './storage.js';
+import { getDaysKey } from './date.js';
+// Popup for the media button
+const mediaImg = document.getElementById('media-img');
+const submitButton = document.getElementById('media-submit-button');
+const url = document.getElementById('media-url');
+const mediaDiv = document.getElementById('media-text-area');
+
+/**
+ * Toggle the display of the HTML element with elementID between displayType and none
+ * @param {string} elementID - The ID for the HTML element
+ * @param {string} displayType - The desired display type
+ */
+function toggle(elementID, displayType) {
+    const element = document.getElementById(elementID);
+    if (element.style.display === displayType) {
+        element.style.display = 'none';
+    } else {
+        element.style.display = displayType;
+    }
+}
+
+function youtubeUpload(link) {
+    const youtubeDiv = document.createElement('div');
+    youtubeDiv.setAttribute('class', 'media-item');
+    const youtubeIfr = document.createElement('iframe');
+    youtubeIfr.setAttribute('src', `https://www.youtube.com/embed/${link.substring(32)}`);
+    youtubeIfr.style.width = '560';
+    youtubeIfr.style.height = '315';
+    youtubeDiv.appendChild(youtubeIfr);
+    mediaDiv.appendChild(youtubeDiv);
+}
+
+function pinterestUpload(link) {
+    const pinterestDiv = document.createElement('div');
+    pinterestDiv.setAttribute('class', 'media-item');
+    const pinterestIfr = document.createElement('iframe');
+    const pinterestUrl = `https://assets.pinterest.com/ext/embed.html?id=${link.substring(30)}`;
+    pinterestIfr.setAttribute('src', pinterestUrl.substr(0, pinterestUrl.length - 1));
+    pinterestIfr.style.width = '236';
+    pinterestIfr.style.height = '520';
+    pinterestIfr.setAttribute('scrolling', 'no');
+    pinterestIfr.setAttribute('frameborder', '0');
+    pinterestDiv.appendChild(pinterestIfr);
+    mediaDiv.appendChild(pinterestDiv);
+}
+
+function soundcloudUpload(link) {
+    const soundcloudDiv = document.createElement('div');
+    soundcloudDiv.setAttribute('class', 'media-item');
+    const soundcloudIfr = document.createElement('iframe');
+    soundcloudIfr.setAttribute('src', `https://w.soundcloud.com/player/?url=${link}`);
+    soundcloudIfr.style.width = '100%';
+    soundcloudIfr.style.height = '150';
+    soundcloudIfr.setAttribute('scrolling', 'no');
+    soundcloudIfr.setAttribute('frameborder', '0');
+    soundcloudDiv.appendChild(soundcloudIfr);
+    mediaDiv.appendChild(soundcloudDiv);
+}
+
+export { youtubeUpload, pinterestUpload, soundcloudUpload };
+
+mediaImg.addEventListener('click', () => {
+    toggle('popup-media', 'flex');
+});
+
+submitButton.addEventListener('click', () => {
+    toggle('popup-media', 'flex');
+    addLink(getDaysKey(window.curDate), url.value);
+    if (url.value.includes('youtube')) {
+        youtubeUpload(url.value);
+    }
+    if (url.value.includes('pinterest')) {
+        pinterestUpload(url.value);
+    }
+    if (url.value.includes('soundcloud')) {
+        soundcloudUpload(url.value);
+    }    
+    document.getElementById('media-uploader').reset();
+});
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCustomTag">addCustomTag</a></li><li><a href="global.html#addEvent">addEvent</a></li><li><a href="global.html#addLink">addLink</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#content">content</a></li><li><a href="global.html#convert12To24">convert12To24</a></li><li><a href="global.html#convert24To12">convert24To12</a></li><li><a href="global.html#getCustomTagColor">getCustomTagColor</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getDaysKey">getDaysKey</a></li><li><a href="global.html#getEventWidths">getEventWidths</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getWeek">getWeek</a></li><li><a href="global.html#minutesSinceMidnight">minutesSinceMidnight</a></li><li><a href="global.html#populate">populate</a></li><li><a href="global.html#populateW">populateW</a></li><li><a href="global.html#removeAll">removeAll</a></li><li><a href="global.html#returnStudentInfo">returnStudentInfo</a></li><li><a href="global.html#test">test</a></li><li><a href="global.html#toggle">toggle</a></li><li><a href="global.html#toggleOptionsDisplay">toggleOptionsDisplay</a></li><li><a href="global.html#updateNotepad">updateNotepad</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jun 10 2021 23:37:40 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
